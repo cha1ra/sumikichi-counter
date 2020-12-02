@@ -67,18 +67,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/ja.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
-    <script>
+    <script defer>
       new Vue({
         el: '#app',
         vuetify: new Vuetify(),
         data() {
             return {
                 currentDatetime: moment(),
-                dueDate: moment(new Date('2021-03-31 23:59:59'))
+                dueDate: null
             }
         },
         created() {
             this.updateCurrentDatetime()
+        },
+        mounted() {
+            this.dueDate = moment(new Date(2021, 03, 31, 23, 59, 59))
         },
         methods: {
             updateCurrentDatetime() {
