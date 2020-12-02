@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>すみきち宣言日までカウンター</title>
+</head>
+<body>
+    <div id="app">
+        <v-app style="background-color: #eee;">
+            <v-main>
+                <v-container>
+                    <v-row>
+                        <v-col>
+                            <v-card>
+                                <v-card-title>
+                                    すみきち宣言日までのカウンター
+                                </v-card-title>
+                                <v-card class="ma-4 pa-4 d-block d-sm-flex justify-space-around align-center" elevation="0" color="orange lighten-5">
+                                    <div class="mx-auto mx-sm-0">
+                                        <p class="d-flex align-center">
+                                            <v-icon left>
+                                                mdi-clock
+                                            </v-icon>
+                                            現在時刻
+                                        </p>
+                                        <p class="mb-0 text-h5">
+                                            {{currentDatetime.format('YYYY年 MM月DD日 HH:mm:ss')}}
+                                        </p>
+                                    </div>
+                                    <v-icon class="d-block d-sm-none">
+                                        mdi-arrow-down
+                                    </v-icon>
+                                    <v-icon class="d-none d-sm-block">
+                                        mdi-arrow-right
+                                    </v-icon>
+                                    <div class="mx-auto mx-sm-0">
+                                        <p class="d-flex align-center">
+                                            <v-icon left>
+                                                mdi-check-circle
+                                            </v-icon>
+                                            締め切り
+                                        </p>
+                                        <p class="mb-0 text-h5">
+                                            {{dueDate.format('YYYY年 MM月DD日 HH:mm:ss')}}
+                                        </p>
+                                    </div>
+                                </v-card>
+                                <div class="pa-4 d-block d-sm-flex justify-center align-center">
+                                    <p class="text-h6">
+                                        残り <span class="text-h3">{{dueDate.diff(currentDatetime, 'days')}}</span>日
+                                    </p>
+                                </div>
+                            </v-card>
+                        </v-col>
+                    </v-row>
+                </v-container>
+            </v-main>
+        </v-app>
+    </div>
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/ja.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script>
+      new Vue({
+        el: '#app',
+        vuetify: new Vuetify(),
+        data() {
+            return {
+                currentDatetime: moment(),
+                dueDate: moment(new Date('2021-03-31 23:59:59'))
+            }
+        },
+        created() {
+            this.updateCurrentDatetime()
+        },
+        methods: {
+            updateCurrentDatetime() {
+                this.currentDatetime = moment()
+                setTimeout(this.updateCurrentDatetime, 1000)
+            }
+        }
+      })
+    </script>
+</body>
+</html>
